@@ -1,40 +1,44 @@
-# 3D Tower Defense — Test World
+# DEBUG/Test — Ground and air visual prototype
 
-## Pass 1 — basic scene and interactions (2026-10-21)
+## Pass 2 (2026-10-21)
 
-**Contained prototype, not production architecture.** Only the test world, its local enemy/tower scripts, and a tiny MasterConfig are implemented. No shared tower/enemy infrastructure, navigation grid, collision steering, economy, or wave system.
+This remains a contained experiment inside DEBUG/Test. The existing ground tower, route and enemy remain independent of the new flying-unit experiment.
 
 ### Run
 
-- Use **Godot 4.7.x .NET**, open the repo, and **Build** C# once. The project includes a \`.csproj\` because the clean repo did not have one.
-- Open \`res://DEBUG/Test/TestWorld.tscn\` and press **F6**, or **F5** (the project main scene is this test).
-- Expected: static desert platform and road visible already in the editor; one test tower tracks red ground drones; cyan tracers remove their health; enemies move from a red entry marker towards the blue citadel.
-- **1**: queue one enemy; **2** or **F2**: queue ten; **3** or **F3**: queue fifty; **V**: toggle lateral variation for newly spawned enemies; **R**: clear enemies, queued spawns and counters. Automated spawning defaults on.
-- The HUD shows alive/killed/escaped counts and the number queued.
+Open the repository in **Godot 4.7.x .NET**, build the C# project, and press **F5**, or open `res://DEBUG/Test/TestWorld.tscn` and press **F6**.
 
-### Local organization
+The scene now features a wider **156 × 96** desert platform, a substantially longer winding road with **13 route markers**, terrain rocks, a ground-only turret and a separate **anti-air-only dual-barrel tower** that rotates horizontally and raises its barrels to attack aircraft.
 
-- \`TestWorld.tscn\`: editor-visible ground, a segmented static road, rocks, lights, camera, markers, turret and HUD.
-- \`TestWorld.cs\`: local spawning/counters/keys, test-only target lookup.
-- \`TestRoute.cs\`: one route built once from the editable \`Route/PointXX\` markers; cached Catmull-Rom samples and cumulative distances, with lateral offsets constrained by road half width and enemy radius. No A* or per-enemy path building.
-- \`TestEnemy.tscn/.cs\`: primitive mesh and simple health/movement.
-- \`TestTower.tscn/.cs\`: local rotating gun, periodic target acquisition and direct-hit damage.
-- \`TestTracer.cs\`: short-lived visual hitscan streak.
-- \`TestMasterConfig.cs/.tres\`: Inspector-adjustable prototype speeds, HP, damage, ranges, spawn budget, lateral spread, drift and auto spawning.
+Flying drones start outside the **west, north or south** map edges, at randomized horizontal locations and heights. They follow a direct 3D trajectory toward the Citadel, with gentle sideways weaving, altitude bobbing and banking. They need no A*, NavMesh or terrain collision checks. The anti-air tower cannot target ground drones, and the original turret remains ground-only.
 
-### Intentional limitations
+### Controls
 
-- The visible road is made of **editor-saved segments** so it cannot disappear due to runtime terrain generation. The runtime movement curve comes from the similarly placed marker nodes. **Moving markers does not yet regenerate those saved visual road segments**; keep them aligned or rebuild visual road geometry when authoring a new course. An editor road authoring tool is a later pass.
-- No ground physics/avoidance, collision bodies, dynamic obstacles, terrain-height sampling or flying ships yet. The test enemy intentionally intersects no collision physics.
-- Turret shots are instant gameplay hits with temporary luminous tracer meshes, *not* simulated ballistics.
-- Initial route variation is bounded by a single constant-width corridor; no varying-width clearance profile.
-- 3D and C# build/runtime verification must be performed on your Godot desktop; GitHub source inspection alone is not proof of a successful engine run.
+| Key | Action |
+| --- | --- |
+| Arrow keys | Pan across battlefield, relative to screen |
+| Shift + arrow | Pan faster |
+| Q / E | Tilt camera up / down |
+| 1 / 2 / 3 | Queue 1 / 10 / 50 **ground** drones |
+| 4 / 5 / 6 | Queue 1 / 10 / 50 **flying** drones |
+| F2 / F3 / F4 | Additional +10 ground / +50 ground / +10 flying shortcuts |
+| V | Toggle ground route variation for new ground enemies |
+| R | Reset both sets of enemies and their counters |
 
-### Suggested follow-up passes
+Automatic spawning for both ground and flying drones is on by default. The two HUD panels track ground and air separately. The root project's viewport and requested window dimensions are **1920×1080**.
 
-- **Pass 2:** tune camera, terrain, road silhouette, enemy/tower scale, lighting and materials after an actual screenshot review.
-- **Pass 3:** improve route authoring (editable smooth road mesh + guide) and tune corridor-safe variations and larger enemy batches.
-- **Pass 4:** add an elevated flight route and one simple flying enemy, separately from ground movement.
-- **Pass 5:** combat feedback polish and profiling at realistic tower/enemy counts before production extraction.
+### Local folders/files
 
-The existing 2D repository is a mechanics reference only. Keep each job to one GitHub commit and follow root \`CodePreferences.md\`.
+- `TestWorld.tscn`: visible road meshes, rock props, camera rig, both towers, goal, spawners and HUD.
+- `TestRoute.cs`, `TestEnemy.*`, `TestTower.*`: unchanged ground route/combat experiment.
+- `TestCameraRig.cs`: screen-relative panning, faster Shift movement and clamped Q/E tilt.
+- `TestAirSystem.cs`: independent flying spawner, air-only turret search and air HUD.
+- `TestFlyingEnemy.tscn/.cs`: simple aircraft geometry and visual flight movement.
+- `TestAntiAirTower.tscn/.cs`: pitched dual-barrel weapon with direct-hit test damage.
+- `TestMasterConfig.cs/.tres`: original ground tuning. Air and camera controls are separately exported on their test-only scene nodes.
+
+### Known limitations
+
+The road consists of editor-saved static segments aligned with the route markers. Editing the route markers does **not** yet automatically regenerate the road geometry. Terrain remains flat. Air ships do not steer around buildings or attack towers, and there is no proper wave, economy or Citadel-health gameplay. These are deliberately temporary implementations for evaluating the presentation.
+
+No Godot/C# engine build or GPU desktop preview has been executed through the repository connector. The first in-editor build and screenshot review are still needed.

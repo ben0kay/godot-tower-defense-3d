@@ -1,14 +1,12 @@
 # Godot Tower Defense 3D
 
-Prototype-first isometric 3D tower defense in Godot 4.7 / C#.
+Prototype-first isometric 3D tower defense using Godot 4.7 / C#.
 
-## Current progress
+## DEBUG/Test status
 
-**DEBUG/Test pass 1:** an isolated test battlefield with editor-visible ground/road, a fixed curved route, a basic ground enemy, a rotating hitscan turret, and keyboard-driven spawning. No production gameplay framework has been introduced.
+- **Pass 1:** fixed winding road, ground drone, automated/manual spawner, ground-only turret.
+- **Pass 2 (2026-10-21):** larger saved battlefield and longer winding route, flying aircraft entering from varied off-map positions, independent anti-air turret, movable/tiltable camera, and a 1920×1080 viewport/window.
 
-1. Open this project in **Godot 4.7.x .NET** (not the standard non-.NET editor).
-2. Build the C# project once using **Build** in the editor.
-3. Press **F6** with \`res://DEBUG/Test/TestWorld.tscn\` open, or **F5** to run the configured main scene.
-4. See \`DEBUG/Test/README.md\` for controls, tuning, limitations and planned passes.
+Run in **Godot 4.7.x .NET** after building C#. Open `res://DEBUG/Test/TestWorld.tscn` and press F6, or press F5 for the project startup scene.
 
-This prototype deliberately prioritizes getting the visual composition and interactions right before extracting production code.
+See [DEBUG/Test/README.md](DEBUG/Test/README.md) for camera and spawning controls, architecture, tunables and limitations. Everything is still a disposable debug prototype; no gameplay systems have been extracted into proper production folders.

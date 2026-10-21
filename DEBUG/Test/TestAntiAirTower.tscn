@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://DEBUG/Test/TestAntiAirTower.cs" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="BaseMat"]
+albedo_color = Color(0.23, 0.25, 0.26, 1)
+metallic = 0.68
+
+[sub_resource type="StandardMaterial3D" id="HeadMat"]
+albedo_color = Color(0.42, 0.44, 0.45, 1)
+metallic = 0.58
+
+[sub_resource type="StandardMaterial3D" id="OrangeMat"]
+albedo_color = Color(0.94, 0.55, 0.11, 1)
+emission_enabled = true
+emission = Color(1, 0.46, 0.08, 1)
+emission_energy_multiplier = 1.7
+
+[sub_resource type="CylinderMesh" id="BaseMesh"]
+top_radius = 1.25
+bottom_radius = 1.38
+height = 0.92
+radial_segments = 10
+material = SubResource("BaseMat")
+
+[sub_resource type="BoxMesh" id="HeadMesh"]
+size = Vector3(2.35, 0.86, 1.75)
+material = SubResource("HeadMat")
+
+[sub_resource type="CylinderMesh" id="BarrelMesh"]
+top_radius = 0.18
+bottom_radius = 0.24
+height = 2.8
+radial_segments = 10
+material = SubResource("BaseMat")
+
+[sub_resource type="BoxMesh" id="GlowMesh"]
+size = Vector3(1.4, 0.16, 0.35)
+material = SubResource("OrangeMat")
+
+[node name="TestAntiAirTower" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.46, 0)
+mesh = SubResource("BaseMesh")
+
+[node name="YawPivot" type="Node3D" parent="."]
+position = Vector3(0, 1.48, 0)
+
+[node name="PitchPivot" type="Node3D" parent="YawPivot"]
+
+[node name="Housing" type="MeshInstance3D" parent="YawPivot/PitchPivot"]
+mesh = SubResource("HeadMesh")
+
+[node name="LeftBarrel" type="MeshInstance3D" parent="YawPivot/PitchPivot"]
+position = Vector3(-0.62, 0, -1.7)
+rotation = Vector3(1.5707964, 0, 0)
+mesh = SubResource("BarrelMesh")
+
+[node name="RightBarrel" type="MeshInstance3D" parent="YawPivot/PitchPivot"]
+position = Vector3(0.62, 0, -1.7)
+rotation = Vector3(1.5707964, 0, 0)
+mesh = SubResource("BarrelMesh")
+
+[node name="Glow" type="MeshInstance3D" parent="YawPivot/PitchPivot"]
+position = Vector3(0, 0.48, 0)
+mesh = SubResource("GlowMesh")
+
+[node name="MuzzleLeft" type="Marker3D" parent="YawPivot/PitchPivot"]
+position = Vector3(-0.62, 0, -3.1)
+
+[node name="MuzzleRight" type="Marker3D" parent="YawPivot/PitchPivot"]
+position = Vector3(0.62, 0, -3.1)
