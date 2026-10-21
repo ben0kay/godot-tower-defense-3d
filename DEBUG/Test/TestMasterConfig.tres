@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TestMasterConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://DEBUG/Test/TestMasterConfig.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+EnemySpeed = 5.6
+EnemyHealth = 45.0
+EnemyRadius = 0.52
+MaxAliveEnemies = 300
+EnableLateralVariation = true
+MaxLateralOffset = 1.45
+SideDriftAmplitude = 0.24
+TowerRange = 15.5
+TowerDamage = 18.0
+TowerShotsPerSecond = 2.5
+AutoSpawn = true
+AutoSpawnInterval = 1.2
+ManualBatchGap = 0.17

@@ -1,0 +1,949 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://DEBUG/Test/TestWorld.cs" id="1"]
+[ext_resource type="Script" path="res://DEBUG/Test/TestRoute.cs" id="2"]
+[ext_resource type="PackedScene" path="res://DEBUG/Test/TestTower.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://DEBUG/Test/TestEnemy.tscn" id="4"]
+[ext_resource type="Resource" path="res://DEBUG/Test/TestMasterConfig.tres" id="5"]
+
+[sub_resource type="StandardMaterial3D" id="GroundMat"]
+albedo_color = Color(0.43, 0.275, 0.19, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="RoadMat"]
+albedo_color = Color(0.18, 0.205, 0.22, 1)
+metallic = 0.12
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StripeMat"]
+albedo_color = Color(0.68, 0.53, 0.32, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="RockMat"]
+albedo_color = Color(0.28, 0.19, 0.17, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="PortalMat"]
+albedo_color = Color(0.83, 0.08, 0.09, 1)
+emission_enabled = true
+emission = Color(1, 0.07, 0.05, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="CitadelMat"]
+albedo_color = Color(0.04, 0.45, 0.75, 1)
+emission_enabled = true
+emission = Color(0.05, 0.43, 0.95, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+size = Vector3(76, 0.8, 50)
+material = SubResource("GroundMat")
+
+[sub_resource type="BoxMesh" id="SegmentMesh"]
+size = Vector3(1, 0.10, 1)
+material = SubResource("RoadMat")
+
+[sub_resource type="BoxMesh" id="StripeMesh"]
+size = Vector3(1, 0.025, 1)
+material = SubResource("StripeMat")
+
+[sub_resource type="BoxMesh" id="RockMesh"]
+size = Vector3(1, 1, 1)
+material = SubResource("RockMat")
+
+[sub_resource type="CylinderMesh" id="BeaconMesh"]
+top_radius = 1.0
+bottom_radius = 1.1
+height = 0.28
+radial_segments = 12
+material = SubResource("PortalMat")
+
+[sub_resource type="CylinderMesh" id="GoalMesh"]
+top_radius = 1.8
+bottom_radius = 2.4
+height = 2.9
+radial_segments = 10
+material = SubResource("CitadelMat")
+
+[sub_resource type="Environment" id="DesertEnvironment"]
+background_mode = 1
+background_color = Color(0.055, 0.075, 0.105, 1)
+ambient_light_source = 1
+ambient_light_color = Color(0.36, 0.44, 0.55, 1)
+ambient_light_energy = 0.65
+tonemap_mode = 2
+
+[node name="TestWorld" type="Node3D"]
+script = ExtResource("1")
+Config = ExtResource("5")
+EnemyScene = ExtResource("4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("DesertEnvironment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-51, -36, 0)
+light_color = Color(1, 0.83, 0.66, 1)
+light_energy = 1.6
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(31, 40, 43)
+rotation_degrees = Vector3(-42.5, 35.8, 0)
+projection = 1
+size = 52.0
+current = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.46, 0)
+mesh = SubResource("GroundMesh")
+
+[node name="Road" type="Node3D" parent="."]
+
+[node name="Road000" type="MeshInstance3D" parent="Road"]
+position = Vector3(-27.7794, 0.0600, -12.9854)
+rotation = Vector3(0.0000, 1.5047, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.6822)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark000" type="MeshInstance3D" parent="Road"]
+position = Vector3(-27.7794, 0.1240, -12.9854)
+rotation = Vector3(0.0000, 1.5047, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.3538)
+mesh = SubResource("StripeMesh")
+
+[node name="Road001" type="MeshInstance3D" parent="Road"]
+position = Vector3(-27.2782, 0.0600, -12.9657)
+rotation = Vector3(0.0000, 1.5527, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.8011)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road002" type="MeshInstance3D" parent="Road"]
+position = Vector3(-26.6668, 0.0600, -12.9608)
+rotation = Vector3(0.0000, 1.5712, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9017)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road003" type="MeshInstance3D" parent="Road"]
+position = Vector3(-25.9643, 0.0600, -12.9620)
+rotation = Vector3(0.0000, 1.5735, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9833)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road004" type="MeshInstance3D" parent="Road"]
+position = Vector3(-25.1897, 0.0600, -12.9605)
+rotation = Vector3(0.0000, 1.5647, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0459)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road005" type="MeshInstance3D" parent="Road"]
+position = Vector3(-24.3621, 0.0600, -12.9478)
+rotation = Vector3(0.0000, 1.5466, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0895)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark005" type="MeshInstance3D" parent="Road"]
+position = Vector3(-24.3621, 0.1240, -12.9478)
+rotation = Vector3(0.0000, 1.5466, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6796)
+mesh = SubResource("StripeMesh")
+
+[node name="Road006" type="MeshInstance3D" parent="Road"]
+position = Vector3(-23.5007, 0.0600, -12.9151)
+rotation = Vector3(0.0000, 1.5195, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1147)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road007" type="MeshInstance3D" parent="Road"]
+position = Vector3(-22.6246, 0.0600, -12.8537)
+rotation = Vector3(0.0000, 1.4825, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1222)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road008" type="MeshInstance3D" parent="Road"]
+position = Vector3(-21.7527, 0.0600, -12.7551)
+rotation = Vector3(0.0000, 1.4335, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1131)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road009" type="MeshInstance3D" parent="Road"]
+position = Vector3(-20.9044, 0.0600, -12.6104)
+rotation = Vector3(0.0000, 1.3694, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0890)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road010" type="MeshInstance3D" parent="Road"]
+position = Vector3(-20.0985, 0.0600, -12.4110)
+rotation = Vector3(0.0000, 1.2853, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0527)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark010" type="MeshInstance3D" parent="Road"]
+position = Vector3(-20.0985, 0.1240, -12.4110)
+rotation = Vector3(0.0000, 1.2853, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6502)
+mesh = SubResource("StripeMesh")
+
+[node name="Road011" type="MeshInstance3D" parent="Road"]
+position = Vector3(-19.3543, 0.0600, -12.1483)
+rotation = Vector3(0.0000, 1.1744, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0082)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road012" type="MeshInstance3D" parent="Road"]
+position = Vector3(-18.6701, 0.0600, -11.8181)
+rotation = Vector3(0.0000, 1.0669, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9933)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road013" type="MeshInstance3D" parent="Road"]
+position = Vector3(-18.0174, 0.0600, -11.4258)
+rotation = Vector3(0.0000, 0.9931, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0109)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road014" type="MeshInstance3D" parent="Road"]
+position = Vector3(-17.3785, 0.0600, -10.9787)
+rotation = Vector3(0.0000, 0.9282, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0294)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road015" type="MeshInstance3D" parent="Road"]
+position = Vector3(-16.7535, 0.0600, -10.4822)
+rotation = Vector3(0.0000, 0.8714, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0477)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark015" type="MeshInstance3D" parent="Road"]
+position = Vector3(-16.7535, 0.1240, -10.4822)
+rotation = Vector3(0.0000, 0.8714, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6461)
+mesh = SubResource("StripeMesh")
+
+[node name="Road016" type="MeshInstance3D" parent="Road"]
+position = Vector3(-16.1424, 0.0600, -9.9414)
+rotation = Vector3(0.0000, 0.8219, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0649)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road017" type="MeshInstance3D" parent="Road"]
+position = Vector3(-15.5451, 0.0600, -9.3615)
+rotation = Vector3(0.0000, 0.7788, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0803)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road018" type="MeshInstance3D" parent="Road"]
+position = Vector3(-14.9618, 0.0600, -8.7478)
+rotation = Vector3(0.0000, 0.7415, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0934)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road019" type="MeshInstance3D" parent="Road"]
+position = Vector3(-14.3924, 0.0600, -8.1055)
+rotation = Vector3(0.0000, 0.7093, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1037)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road020" type="MeshInstance3D" parent="Road"]
+position = Vector3(-13.8368, 0.0600, -7.4397)
+rotation = Vector3(0.0000, 0.6816, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1108)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark020" type="MeshInstance3D" parent="Road"]
+position = Vector3(-13.8368, 0.1240, -7.4397)
+rotation = Vector3(0.0000, 0.6816, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6966)
+mesh = SubResource("StripeMesh")
+
+[node name="Road021" type="MeshInstance3D" parent="Road"]
+position = Vector3(-13.2951, 0.0600, -6.7556)
+rotation = Vector3(0.0000, 0.6580, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1144)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road022" type="MeshInstance3D" parent="Road"]
+position = Vector3(-12.7674, 0.0600, -6.0586)
+rotation = Vector3(0.0000, 0.6381, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1143)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road023" type="MeshInstance3D" parent="Road"]
+position = Vector3(-12.2535, 0.0600, -5.3537)
+rotation = Vector3(0.0000, 0.6218, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1103)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road024" type="MeshInstance3D" parent="Road"]
+position = Vector3(-11.7678, 0.0600, -4.6247)
+rotation = Vector3(0.0000, 0.5541, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1226)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road025" type="MeshInstance3D" parent="Road"]
+position = Vector3(-11.3338, 0.0600, -3.8377)
+rotation = Vector3(0.0000, 0.4557, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1571)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark025" type="MeshInstance3D" parent="Road"]
+position = Vector3(-11.3338, 0.1240, -3.8377)
+rotation = Vector3(0.0000, 0.4557, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7337)
+mesh = SubResource("StripeMesh")
+
+[node name="Road026" type="MeshInstance3D" parent="Road"]
+position = Vector3(-10.9527, 0.0600, -2.9864)
+rotation = Vector3(0.0000, 0.3872, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1893)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road027" type="MeshInstance3D" parent="Road"]
+position = Vector3(-10.6089, 0.0600, -2.0883)
+rotation = Vector3(0.0000, 0.3444, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2145)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road028" type="MeshInstance3D" parent="Road"]
+position = Vector3(-10.2869, 0.0600, -1.1606)
+rotation = Vector3(0.0000, 0.3241, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2296)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road029" type="MeshInstance3D" parent="Road"]
+position = Vector3(-9.9709, 0.0600, -0.2208)
+rotation = Vector3(0.0000, 0.3246, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2334)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road030" type="MeshInstance3D" parent="Road"]
+position = Vector3(-9.6454, 0.0600, 0.7138)
+rotation = Vector3(0.0000, 0.3458, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2260)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark030" type="MeshInstance3D" parent="Road"]
+position = Vector3(-9.6454, 0.1240, 0.7138)
+rotation = Vector3(0.0000, 0.3458, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7888)
+mesh = SubResource("StripeMesh")
+
+[node name="Road031" type="MeshInstance3D" parent="Road"]
+position = Vector3(-9.2947, 0.0600, 1.6259)
+rotation = Vector3(0.0000, 0.3888, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2087)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road032" type="MeshInstance3D" parent="Road"]
+position = Vector3(-8.9032, 0.0600, 2.4980)
+rotation = Vector3(0.0000, 0.4560, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1843)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road033" type="MeshInstance3D" parent="Road"]
+position = Vector3(-8.4553, 0.0600, 3.3128)
+rotation = Vector3(0.0000, 0.5506, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1574)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road034" type="MeshInstance3D" parent="Road"]
+position = Vector3(-7.9353, 0.0600, 4.0530)
+rotation = Vector3(0.0000, 0.6757, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1352)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road035" type="MeshInstance3D" parent="Road"]
+position = Vector3(-7.3277, 0.0600, 4.7011)
+rotation = Vector3(0.0000, 0.8313, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1271)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark035" type="MeshInstance3D" parent="Road"]
+position = Vector3(-7.3277, 0.1240, 4.7011)
+rotation = Vector3(0.0000, 0.8313, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7097)
+mesh = SubResource("StripeMesh")
+
+[node name="Road036" type="MeshInstance3D" parent="Road"]
+position = Vector3(-6.6162, 0.0600, 5.2635)
+rotation = Vector3(0.0000, 0.9693, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1711)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road037" type="MeshInstance3D" parent="Road"]
+position = Vector3(-5.7956, 0.0600, 5.7739)
+rotation = Vector3(0.0000, 1.0562, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2435)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road038" type="MeshInstance3D" parent="Road"]
+position = Vector3(-4.8786, 0.0600, 6.2487)
+rotation = Vector3(0.0000, 1.1277, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3030)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road039" type="MeshInstance3D" parent="Road"]
+position = Vector3(-3.8844, 0.0600, 6.6827)
+rotation = Vector3(0.0000, 1.1894, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3477)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road040" type="MeshInstance3D" parent="Road"]
+position = Vector3(-2.8320, 0.0600, 7.0707)
+rotation = Vector3(0.0000, 1.2450, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3765)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark040" type="MeshInstance3D" parent="Road"]
+position = Vector3(-2.8320, 0.1240, 7.0707)
+rotation = Vector3(0.0000, 1.2450, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.8500)
+mesh = SubResource("StripeMesh")
+
+[node name="Road041" type="MeshInstance3D" parent="Road"]
+position = Vector3(-1.7406, 0.0600, 7.4076)
+rotation = Vector3(0.0000, 1.2977, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3888)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road042" type="MeshInstance3D" parent="Road"]
+position = Vector3(-0.6292, 0.0600, 7.6879)
+rotation = Vector3(0.0000, 1.3498, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3844)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road043" type="MeshInstance3D" parent="Road"]
+position = Vector3(0.4831, 0.0600, 7.9067)
+rotation = Vector3(0.0000, 1.4039, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3635)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road044" type="MeshInstance3D" parent="Road"]
+position = Vector3(1.5771, 0.0600, 8.0586)
+rotation = Vector3(0.0000, 1.4627, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.3265)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road045" type="MeshInstance3D" parent="Road"]
+position = Vector3(2.6338, 0.0600, 8.1385)
+rotation = Vector3(0.0000, 1.5297, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2742)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark045" type="MeshInstance3D" parent="Road"]
+position = Vector3(2.6338, 0.1240, 8.1385)
+rotation = Vector3(0.0000, 1.5297, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.8273)
+mesh = SubResource("StripeMesh")
+
+[node name="Road046" type="MeshInstance3D" parent="Road"]
+position = Vector3(3.6341, 0.0600, 8.1411)
+rotation = Vector3(0.0000, 1.6094, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2080)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road047" type="MeshInstance3D" parent="Road"]
+position = Vector3(4.5589, 0.0600, 8.0612)
+rotation = Vector3(0.0000, 1.7087, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1307)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road048" type="MeshInstance3D" parent="Road"]
+position = Vector3(5.4018, 0.0600, 7.8818)
+rotation = Vector3(0.0000, 1.8569, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0776)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road049" type="MeshInstance3D" parent="Road"]
+position = Vector3(6.1784, 0.0600, 7.5820)
+rotation = Vector3(0.0000, 2.0219, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0730)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road050" type="MeshInstance3D" parent="Road"]
+position = Vector3(6.9055, 0.0600, 7.1651)
+rotation = Vector3(0.0000, 2.1598, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0874)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark050" type="MeshInstance3D" parent="Road"]
+position = Vector3(6.9055, 0.1240, 7.1651)
+rotation = Vector3(0.0000, 2.1598, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6779)
+mesh = SubResource("StripeMesh")
+
+[node name="Road051" type="MeshInstance3D" parent="Road"]
+position = Vector3(7.5919, 0.0600, 6.6500)
+rotation = Vector3(0.0000, 2.2678, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1113)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road052" type="MeshInstance3D" parent="Road"]
+position = Vector3(8.2461, 0.0600, 6.0560)
+rotation = Vector3(0.0000, 2.3471, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1374)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road053" type="MeshInstance3D" parent="Road"]
+position = Vector3(8.8769, 0.0600, 5.4021)
+rotation = Vector3(0.0000, 2.4007, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1604)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road054" type="MeshInstance3D" parent="Road"]
+position = Vector3(9.4929, 0.0600, 4.7073)
+rotation = Vector3(0.0000, 2.4314, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1769)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road055" type="MeshInstance3D" parent="Road"]
+position = Vector3(10.1029, 0.0600, 3.9909)
+rotation = Vector3(0.0000, 2.4412, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1850)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark055" type="MeshInstance3D" parent="Road"]
+position = Vector3(10.1029, 0.1240, 3.9909)
+rotation = Vector3(0.0000, 2.4412, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7560)
+mesh = SubResource("StripeMesh")
+
+[node name="Road056" type="MeshInstance3D" parent="Road"]
+position = Vector3(10.7154, 0.0600, 3.2718)
+rotation = Vector3(0.0000, 2.4308, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1842)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road057" type="MeshInstance3D" parent="Road"]
+position = Vector3(11.3393, 0.0600, 2.5693)
+rotation = Vector3(0.0000, 2.4000, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1751)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road058" type="MeshInstance3D" parent="Road"]
+position = Vector3(11.9831, 0.0600, 1.9023)
+rotation = Vector3(0.0000, 2.3473, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1595)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road059" type="MeshInstance3D" parent="Road"]
+position = Vector3(12.6555, 0.0600, 1.2901)
+rotation = Vector3(0.0000, 2.2707, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1407)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road060" type="MeshInstance3D" parent="Road"]
+position = Vector3(13.3607, 0.0600, 0.7229)
+rotation = Vector3(0.0000, 2.2258, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1496)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark060" type="MeshInstance3D" parent="Road"]
+position = Vector3(13.3607, 0.1240, 0.7229)
+rotation = Vector3(0.0000, 2.2258, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7277)
+mesh = SubResource("StripeMesh")
+
+[node name="Road061" type="MeshInstance3D" parent="Road"]
+position = Vector3(14.0933, 0.0600, 0.1593)
+rotation = Vector3(0.0000, 2.2273, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1791)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road062" type="MeshInstance3D" parent="Road"]
+position = Vector3(14.8459, 0.0600, -0.4191)
+rotation = Vector3(0.0000, 2.2249, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1993)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road063" type="MeshInstance3D" parent="Road"]
+position = Vector3(15.6133, 0.0600, -1.0036)
+rotation = Vector3(0.0000, 2.2187, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2100)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road064" type="MeshInstance3D" parent="Road"]
+position = Vector3(16.3902, 0.0600, -1.5855)
+rotation = Vector3(0.0000, 2.2086, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2114)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road065" type="MeshInstance3D" parent="Road"]
+position = Vector3(17.1714, 0.0600, -2.1561)
+rotation = Vector3(0.0000, 2.1945, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.2036)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark065" type="MeshInstance3D" parent="Road"]
+position = Vector3(17.1714, 0.1240, -2.1561)
+rotation = Vector3(0.0000, 2.1945, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.7708)
+mesh = SubResource("StripeMesh")
+
+[node name="Road066" type="MeshInstance3D" parent="Road"]
+position = Vector3(17.9518, 0.0600, -2.7067)
+rotation = Vector3(0.0000, 2.1758, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1867)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road067" type="MeshInstance3D" parent="Road"]
+position = Vector3(18.7261, 0.0600, -3.2287)
+rotation = Vector3(0.0000, 2.1517, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1611)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road068" type="MeshInstance3D" parent="Road"]
+position = Vector3(19.4891, 0.0600, -3.7134)
+rotation = Vector3(0.0000, 2.1211, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.1270)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road069" type="MeshInstance3D" parent="Road"]
+position = Vector3(20.2357, 0.0600, -4.1521)
+rotation = Vector3(0.0000, 2.0821, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0850)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road070" type="MeshInstance3D" parent="Road"]
+position = Vector3(20.9605, 0.0600, -4.5360)
+rotation = Vector3(0.0000, 2.0323, 0.0000)
+scale = Vector3(5.0000, 1.0000, 1.0360)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark070" type="MeshInstance3D" parent="Road"]
+position = Vector3(20.9605, 0.1240, -4.5360)
+rotation = Vector3(0.0000, 2.0323, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.6368)
+mesh = SubResource("StripeMesh")
+
+[node name="Road071" type="MeshInstance3D" parent="Road"]
+position = Vector3(21.6584, 0.0600, -4.8566)
+rotation = Vector3(0.0000, 1.9682, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9809)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road072" type="MeshInstance3D" parent="Road"]
+position = Vector3(22.3378, 0.0600, -5.1050)
+rotation = Vector3(0.0000, 1.8722, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9475)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road073" type="MeshInstance3D" parent="Road"]
+position = Vector3(23.0195, 0.0600, -5.2786)
+rotation = Vector3(0.0000, 1.7676, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9413)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road074" type="MeshInstance3D" parent="Road"]
+position = Vector3(23.7091, 0.0600, -5.3845)
+rotation = Vector3(0.0000, 1.6784, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9353)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road075" type="MeshInstance3D" parent="Road"]
+position = Vector3(24.3977, 0.0600, -5.4332)
+rotation = Vector3(0.0000, 1.6037, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9264)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark075" type="MeshInstance3D" parent="Road"]
+position = Vector3(24.3977, 0.1240, -5.4332)
+rotation = Vector3(0.0000, 1.6037, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.5491)
+mesh = SubResource("StripeMesh")
+
+[node name="Road076" type="MeshInstance3D" parent="Road"]
+position = Vector3(25.0768, 0.0600, -5.4349)
+rotation = Vector3(0.0000, 1.5424, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.9124)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road077" type="MeshInstance3D" parent="Road"]
+position = Vector3(25.7377, 0.0600, -5.4002)
+rotation = Vector3(0.0000, 1.4934, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.8915)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road078" type="MeshInstance3D" parent="Road"]
+position = Vector3(26.3717, 0.0600, -5.3394)
+rotation = Vector3(0.0000, 1.4562, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.8624)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road079" type="MeshInstance3D" parent="Road"]
+position = Vector3(26.9701, 0.0600, -5.2630)
+rotation = Vector3(0.0000, 1.4307, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.8241)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road080" type="MeshInstance3D" parent="Road"]
+position = Vector3(27.5242, 0.0600, -5.1814)
+rotation = Vector3(0.0000, 1.4180, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.7760)
+mesh = SubResource("SegmentMesh")
+
+[node name="CenterMark080" type="MeshInstance3D" parent="Road"]
+position = Vector3(27.5242, 0.1240, -5.1814)
+rotation = Vector3(0.0000, 1.4180, 0.0000)
+scale = Vector3(0.0850, 1.0000, 0.4288)
+mesh = SubResource("StripeMesh")
+
+[node name="Road081" type="MeshInstance3D" parent="Road"]
+position = Vector3(28.0253, 0.0600, -5.1050)
+rotation = Vector3(0.0000, 1.4213, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.7178)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road082" type="MeshInstance3D" parent="Road"]
+position = Vector3(28.4648, 0.0600, -5.0443)
+rotation = Vector3(0.0000, 1.4476, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.6496)
+mesh = SubResource("SegmentMesh")
+
+[node name="Road083" type="MeshInstance3D" parent="Road"]
+position = Vector3(28.8341, 0.0600, -5.0095)
+rotation = Vector3(0.0000, 1.5133, 0.0000)
+scale = Vector3(5.0000, 1.0000, 0.5724)
+mesh = SubResource("SegmentMesh")
+
+[node name="Route" type="Node3D" parent="."]
+script = ExtResource("2")
+RoadHalfWidth = 2.45
+
+[node name="Point01" type="Marker3D" parent="Route"]
+position = Vector3(-28.0000, 0.1300, -13.0000)
+
+[node name="Point02" type="Marker3D" parent="Route"]
+position = Vector3(-19.0000, 0.1300, -12.0000)
+
+[node name="Point03" type="Marker3D" parent="Route"]
+position = Vector3(-12.0000, 0.1300, -5.0000)
+
+[node name="Point04" type="Marker3D" parent="Route"]
+position = Vector3(-7.0000, 0.1300, 5.0000)
+
+[node name="Point05" type="Marker3D" parent="Route"]
+position = Vector3(5.0000, 0.1300, 8.0000)
+
+[node name="Point06" type="Marker3D" parent="Route"]
+position = Vector3(13.0000, 0.1300, 1.0000)
+
+[node name="Point07" type="Marker3D" parent="Route"]
+position = Vector3(22.0000, 0.1300, -5.0000)
+
+[node name="Point08" type="Marker3D" parent="Route"]
+position = Vector3(29.0000, 0.1300, -5.0000)
+
+[node name="Tower" parent="." instance=ExtResource("3")]
+position = Vector3(1, 0.04, -1.3)
+
+[node name="EntryBeacon" type="MeshInstance3D" parent="."]
+position = Vector3(-28, 0.17, -13)
+mesh = SubResource("BeaconMesh")
+
+[node name="Citadel" type="MeshInstance3D" parent="."]
+position = Vector3(30.8, 1.4, -5)
+mesh = SubResource("GoalMesh")
+
+[node name="Rocks" type="Node3D" parent="."]
+
+[node name="Rock01" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(26.9917, 0.5951, -15.0921)
+rotation = Vector3(-0.1301, 2.9478, 0.0414)
+scale = Vector3(1.4038, 1.4168, 1.1794)
+mesh = SubResource("RockMesh")
+
+[node name="Rock02" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-26.6635, 1.2729, 1.8956)
+rotation = Vector3(0.0918, 1.1261, -0.0070)
+scale = Vector3(2.3381, 3.0307, 2.5347)
+mesh = SubResource("RockMesh")
+
+[node name="Rock03" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(18.5469, 1.3921, 10.6758)
+rotation = Vector3(0.1036, 1.6924, -0.0480)
+scale = Vector3(1.8980, 3.3145, 1.6183)
+mesh = SubResource("RockMesh")
+
+[node name="Rock04" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(9.8143, 1.5261, -19.8201)
+rotation = Vector3(-0.1262, 0.9949, -0.0097)
+scale = Vector3(2.7271, 3.6335, 2.1400)
+mesh = SubResource("RockMesh")
+
+[node name="Rock05" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-18.2329, 0.6843, 4.4626)
+rotation = Vector3(-0.1428, 0.7447, -0.0059)
+scale = Vector3(0.8620, 1.6293, 1.0330)
+mesh = SubResource("RockMesh")
+
+[node name="Rock06" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(8.4956, 1.0309, -4.8161)
+rotation = Vector3(-0.0494, 2.8086, -0.0297)
+scale = Vector3(0.8468, 2.4546, 0.8257)
+mesh = SubResource("RockMesh")
+
+[node name="Rock07" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-12.0207, 0.5849, -13.1324)
+rotation = Vector3(-0.0604, 0.0996, 0.0569)
+scale = Vector3(0.8849, 1.3927, 0.6750)
+mesh = SubResource("RockMesh")
+
+[node name="Rock08" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-17.4601, 1.1871, 20.5541)
+rotation = Vector3(0.1392, 0.9179, -0.0329)
+scale = Vector3(1.9364, 2.8265, 1.9695)
+mesh = SubResource("RockMesh")
+
+[node name="Rock09" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(5.7945, 0.5991, -15.6722)
+rotation = Vector3(0.0277, 0.1089, -0.1143)
+scale = Vector3(1.9413, 1.4264, 1.5942)
+mesh = SubResource("RockMesh")
+
+[node name="Rock10" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-23.8911, 1.2842, 8.7191)
+rotation = Vector3(-0.0255, 0.6561, 0.0694)
+scale = Vector3(1.1668, 3.0575, 1.1542)
+mesh = SubResource("RockMesh")
+
+[node name="Rock11" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-14.9770, 1.2566, 20.2420)
+rotation = Vector3(-0.1195, 1.5683, -0.0509)
+scale = Vector3(1.3933, 2.9919, 1.2667)
+mesh = SubResource("RockMesh")
+
+[node name="Rock12" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-31.0333, 1.0017, -3.5780)
+rotation = Vector3(0.0412, 1.1755, 0.0345)
+scale = Vector3(2.5628, 2.3849, 2.9076)
+mesh = SubResource("RockMesh")
+
+[node name="Rock13" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-19.1492, 1.3286, 14.7152)
+rotation = Vector3(-0.1293, 0.9530, 0.0304)
+scale = Vector3(1.0419, 3.1633, 1.0691)
+mesh = SubResource("RockMesh")
+
+[node name="Rock14" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(32.8664, 0.8724, 2.1805)
+rotation = Vector3(0.1156, 2.7226, 0.0126)
+scale = Vector3(1.9187, 2.0771, 1.7590)
+mesh = SubResource("RockMesh")
+
+[node name="Rock15" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-16.4084, 1.1174, -2.0574)
+rotation = Vector3(0.0140, 2.3957, 0.0529)
+scale = Vector3(2.7542, 2.6605, 2.5381)
+mesh = SubResource("RockMesh")
+
+[node name="Rock16" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(7.1042, 1.3331, -13.5693)
+rotation = Vector3(-0.1156, 1.5423, -0.1231)
+scale = Vector3(1.8631, 3.1740, 1.5091)
+mesh = SubResource("RockMesh")
+
+[node name="Rock17" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-2.7471, 0.6403, -22.5841)
+rotation = Vector3(-0.0004, 2.5784, 0.0874)
+scale = Vector3(1.3714, 1.5245, 1.1366)
+mesh = SubResource("RockMesh")
+
+[node name="Rock18" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(21.7964, 1.2822, 4.9877)
+rotation = Vector3(-0.0308, 1.8071, -0.1082)
+scale = Vector3(1.3839, 3.0528, 1.3924)
+mesh = SubResource("RockMesh")
+
+[node name="Rock19" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-14.2226, 1.2784, 3.8489)
+rotation = Vector3(-0.0034, 0.0839, 0.0455)
+scale = Vector3(1.6029, 3.0439, 1.3544)
+mesh = SubResource("RockMesh")
+
+[node name="Rock20" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(11.3396, 1.3357, 15.1235)
+rotation = Vector3(-0.1473, 1.8507, -0.0986)
+scale = Vector3(1.3790, 3.1801, 1.5936)
+mesh = SubResource("RockMesh")
+
+[node name="Rock21" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-5.5178, 1.2437, 12.8211)
+rotation = Vector3(-0.1280, 1.6090, 0.0422)
+scale = Vector3(1.3522, 2.9612, 1.0723)
+mesh = SubResource("RockMesh")
+
+[node name="Rock22" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-11.7689, 1.1124, -13.0192)
+rotation = Vector3(-0.0644, 2.2745, 0.0629)
+scale = Vector3(1.2331, 2.6486, 1.2533)
+mesh = SubResource("RockMesh")
+
+[node name="Rock23" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(33.4356, 0.4318, 20.7650)
+rotation = Vector3(0.1308, 1.4704, -0.1034)
+scale = Vector3(1.9664, 1.0281, 2.2543)
+mesh = SubResource("RockMesh")
+
+[node name="Rock24" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-5.3346, 1.2869, 12.9619)
+rotation = Vector3(-0.0873, 1.0929, 0.0303)
+scale = Vector3(2.6426, 3.0640, 2.0562)
+mesh = SubResource("RockMesh")
+
+[node name="Rock25" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-23.8636, 0.8076, 12.9568)
+rotation = Vector3(0.0295, 0.8686, -0.0975)
+scale = Vector3(2.7581, 1.9229, 2.2694)
+mesh = SubResource("RockMesh")
+
+[node name="Rock26" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(5.9732, 1.4416, 0.2171)
+rotation = Vector3(-0.1410, 1.5931, -0.1058)
+scale = Vector3(1.9381, 3.4323, 1.7911)
+mesh = SubResource("RockMesh")
+
+[node name="Rock27" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-22.7128, 1.4460, -7.0871)
+rotation = Vector3(0.0604, 1.6537, -0.0209)
+scale = Vector3(2.0656, 3.4428, 1.8188)
+mesh = SubResource("RockMesh")
+
+[node name="Rock28" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(7.7547, 1.4103, -1.5862)
+rotation = Vector3(0.0688, 1.5978, -0.0466)
+scale = Vector3(1.5359, 3.3579, 1.6880)
+mesh = SubResource("RockMesh")
+
+[node name="Rock29" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(-6.3049, 0.7700, -10.3407)
+rotation = Vector3(0.0346, 1.0488, -0.0077)
+scale = Vector3(1.6346, 1.8334, 1.7674)
+mesh = SubResource("RockMesh")
+
+[node name="Rock30" type="MeshInstance3D" parent="Rocks"]
+position = Vector3(13.8143, 1.0122, -17.4307)
+rotation = Vector3(0.0428, 1.5046, 0.0155)
+scale = Vector3(1.1357, 2.4101, 1.2066)
+mesh = SubResource("RockMesh")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="HUD"]
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 570.0
+offset_bottom = 117.0
+
+[node name="Content" type="VBoxContainer" parent="HUD/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="HUD/Panel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "TOWER DEFENSE 3D — DEBUG / PASS 1"
+
+[node name="Stats" type="Label" parent="HUD/Panel/Content"]
+layout_mode = 2
+text = "Loading test world..."

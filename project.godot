@@ -13,6 +13,7 @@ config_version=5
 config/name="godot-tower-defense-3d"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://DEBUG/Test/TestWorld.tscn"
 
 [display]
 
